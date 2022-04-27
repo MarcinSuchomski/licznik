@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+// use App\Services\Auth\UserService;
+use App\Services\User\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
@@ -12,50 +14,28 @@ use App\Models\User;
 
 class AuthController extends Controller
 {
+    /**
+     * @var UserService
+     */
+    public $service;
+
+    /**
+     * ActivationController constructor.
+     * @param UserService $service
+     */
+    public function __construct(UserService $service)
+    {
+        $this->service = $service;
+    }
+
     public function register(Request $request)
     {
-        $requestData = $request->all();
-        $validator = Validator::make($requestData,[
-            'name' => 'required|max:55',
-            'email' => 'email|required|unique:users',
-            'password' => 'required|confirmed'
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'errors' => $validator->errors()
-            ], 422);
-        }
-
-        $requestData['password'] = Hash::make($requestData['password']);
-
-        $user = User::create($requestData);
-
-        return response([ 'status' => true, 'message' => 'User successfully register.' ], 200);
+        return $this->service->register($request);
     }
 
     public function login(Request $request)
     {
-
-        $requestData = $request->all();
-        $validator = Validator::make($requestData,[
-            'email' => 'email|required',
-            'password' => 'required'
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json([
-                'errors' => $validator->errors()
-            ], 422);
-        }
-
-        if(! auth()->attempt($requestData)){
-            return response()->json(['error' => 'UnAuthorised Access'], 401);
-        }
-
-        $accessToken = auth()->user()->createToken('authToken')->accessToken;
-
-        return response(['user' => auth()->user(), 'access_token' => $accessToken], 200);
+        return $this->service->login($request);
     }
 
     public function me(Request $request)
