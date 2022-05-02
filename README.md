@@ -38,15 +38,15 @@ kiliknij link `http://127.0.0.1:8000` aby otworzyc frontend
 +--------+----------+-----------------------------------------+-----------------------------------+---------------------------------------------------------------------------+------------------------------------------------+
 ```
 ### Controllers 
-* `\Http\Controllers\Api`
+* `app\Http\Controllers\Api`
 ### Models
-* `\Models`
+* `app\Models`
 ### Services
-* `\Services`
+* `app\Services`
 ### Repositories
-* `\Repositories`
+* `app\Repositories`
 ### Validators
-* `\Validators`
+* `app\Validators`
 
 Aplikacje uzywa repository pattern i factory pattern
 
