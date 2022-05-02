@@ -62,7 +62,7 @@ po zalogowaniu uzytkowniki moze kliknac na `Counter` aby rozpoczac prace licznik
 * ZAPISZ CZAS
 * * klikniecie na  'Zapisz Czas' zatrzymuje licznik, i umozliwia zapis czasu do DB
 
-### dashboard:
+### Dashboard:
 po zalogowaniu uzytkowniki moze kliknac na `dashboard`aby zobaczyc swoje wczesniej zapisane czasy.
 
 #### mozlive akcje:
