@@ -45,8 +45,6 @@ class TimeController extends Controller
      */
     public function getAll(Request $request)
     {
-        $header = $request->header('Authorization');
-        Log::info($header);
         $request = $request->input();
 
         if (isset($request['from'], $request['to'])) {
