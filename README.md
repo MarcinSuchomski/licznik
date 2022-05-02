@@ -50,6 +50,8 @@ kiliknij link `http://127.0.0.1:8000` aby otworzyc frontend
 
 Aplikacje uzywa repository pattern i factory pattern
 
+Przy twozeniu nowych `Services` albo `Repositories` prosze extend `BaseServices` amd 
+`BaseRepository`
 
 # Frontend 
 
@@ -59,7 +61,7 @@ Aplikacje uzywa repository pattern i factory pattern
 ### Counter:
 po zalogowaniu uzytkowniki moze kliknac na `Counter` aby rozpoczac prace licznika.
 
-#### mozlive akcje:
+#### mozliwe akcje:
 
 * START
 * RESTART
@@ -69,7 +71,7 @@ po zalogowaniu uzytkowniki moze kliknac na `Counter` aby rozpoczac prace licznik
 ### Dashboard:
 po zalogowaniu uzytkowniki moze kliknac na `dashboard`aby zobaczyc swoje wczesniej zapisane czasy.
 
-#### mozlive akcje:
+#### mozliwe akcje:
 
 * FILTRACJA DAT
 * DOWNLOAD CSV
