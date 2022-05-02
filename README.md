@@ -53,7 +53,8 @@ Aplikacje uzywa repository pattern i factory pattern
 
 # Frontend 
 
-Aplikacja pozwala uzytkownikowi na zalogowanie sie lub stworzenie nowego uzytkowinka, 
+### Login
+`admin@admin.com` password `admin`
 
 ### Counter:
 po zalogowaniu uzytkowniki moze kliknac na `Counter` aby rozpoczac prace licznika.
@@ -75,3 +76,6 @@ po zalogowaniu uzytkowniki moze kliknac na `dashboard`aby zobaczyc swoje wczesni
 
 ### Logout:
 Logout 
+
+### Register:
+Register 
