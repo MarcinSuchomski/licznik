@@ -58,7 +58,7 @@ export default {
         };
     },
     mounted() {
-        console.log(this.auth.user);
+       // console.log(this.auth.user);
     },
     methods: {
         logout() {

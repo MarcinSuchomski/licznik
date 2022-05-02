@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" value="{{ csrf_token() }}" />
 
-    <title>Vue JS CRUD Operations in Laravel</title>
+    <title>Licznik</title>
 
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>

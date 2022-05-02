@@ -84,7 +84,7 @@ export default {
             this.timerRunning = true;
             this.interval = setInterval(this.counter, 1000);
             this.saveTime = false;
-            console.log(this.totalTime);
+            // console.log(this.totalTime);
         },
         timerPause() {
             this.timerRunning = false;
@@ -98,7 +98,7 @@ export default {
             this.totalTime = 0;
         },
         timerCount() {
-            console.log('checking  working ');
+            // console.log('checking  working ');
             this.timerRunning = true;
             this.interval = setInterval(this.updateCurrentTime, 1000);
             // Counts down from 60 seconds times 1000.
@@ -142,21 +142,17 @@ export default {
                 return true;
             }
 
-            e.preventDefault();
+            return false;
         },
 
         saveWork() {
             this.checkForm(),
                 this.axios.post('time', this.timeData)
                     .then(({data}) => {
-                       // this.$router.push('/login');
+                        this.$router.push('/dashboard');
                     })
                     .catch((error) => {
-                        if (error.response.status == 200) {
-                            this.errors.push("informacje zostaly zapisane");
-                        } else {
-                            this.errors.push(error.response.data.errors);
-                        }
+                       this.errors.push(error.response.data.errors);
                     });
         }
     },

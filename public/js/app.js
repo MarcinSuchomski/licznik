@@ -5325,8 +5325,7 @@ __webpack_require__.r(__webpack_exports__);
       loggedUser: this.auth.user
     };
   },
-  mounted: function mounted() {
-    console.log(this.auth.user);
+  mounted: function mounted() {// console.log(this.auth.user);
   },
   methods: {
     logout: function logout() {
@@ -5439,8 +5438,7 @@ __webpack_require__.r(__webpack_exports__);
     timerRun: function timerRun() {
       this.timerRunning = true;
       this.interval = setInterval(this.counter, 1000);
-      this.saveTime = false;
-      console.log(this.totalTime);
+      this.saveTime = false; // console.log(this.totalTime);
     },
     timerPause: function timerPause() {
       this.timerRunning = false;
@@ -5458,7 +5456,7 @@ __webpack_require__.r(__webpack_exports__);
     timerCount: function timerCount() {
       var _this2 = this;
 
-      console.log('checking  working ');
+      // console.log('checking  working ');
       this.timerRunning = true;
       this.interval = setInterval(this.updateCurrentTime, 1000); // Counts down from 60 seconds times 1000.
 
@@ -5501,20 +5499,17 @@ __webpack_require__.r(__webpack_exports__);
         return true;
       }
 
-      e.preventDefault();
+      return false;
     },
     saveWork: function saveWork() {
       var _this3 = this;
 
-      this.checkForm(), this.axios.post('time', this.timeData).then(function (_ref) {// this.$router.push('/login');
-
+      this.checkForm(), this.axios.post('time', this.timeData).then(function (_ref) {
         var data = _ref.data;
+
+        _this3.$router.push('/dashboard');
       })["catch"](function (error) {
-        if (error.response.status == 200) {
-          _this3.errors.push("informacje zostaly zapisane");
-        } else {
-          _this3.errors.push(error.response.data.errors);
-        }
+        _this3.errors.push(error.response.data.errors);
       });
     }
   },
