@@ -1,10 +1,9 @@
 # Witam w aplikacji licznik!
 
-Backend Laravel 
 
-Frondend Vue.js
-
-DB sqLite
+* Backend - Laravel (PHP)
+* Frontend - Vue.js
+* DB - sqLite
 
 Aby uruchomic aplickacje:
 * copy `.env.example` do `.env`
