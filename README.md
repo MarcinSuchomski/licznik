@@ -15,8 +15,11 @@ Aby uruchomic aplickacje:
 * run `php artisan serve`
 
 kiliknij link `http://127.0.0.1:8000` aby otworzyc frontend 
- 
-## API ROUTES 
+
+1 user stworzony przy migration `admin@admin.com` password `admin`
+
+## API ROUTES
+'http://127.0.0.1:8000/api'
 ```
 +--------+----------+-----------------------------------------+-----------------------------------+---------------------------------------------------------------------------+------------------------------------------------+
 | Domain | Method   | URI                                     | Action                                                                    | Middleware                                     |
