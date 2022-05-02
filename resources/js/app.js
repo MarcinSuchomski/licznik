@@ -11,9 +11,12 @@ import axios from 'axios';
 import VueAxios from 'vue-axios';
 import Auth from './Auth.js';
 
+axios.defaults.baseURL = 'http://127.0.0.1:8000/api/';
+//axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.token;
+
 Vue.prototype.auth = Auth;
 Vue.use(VueAxios, axios);
-Vue.prototype.$api = 'http://127.0.0.1:8000/api/'
+Vue.prototype.$api = ''
 
 import App from './app.vue';
 import router from './routes';

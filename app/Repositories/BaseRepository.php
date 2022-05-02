@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Log;
 
 abstract class BaseRepository
 {
@@ -95,6 +96,8 @@ abstract class BaseRepository
      */
     protected function applyWheres(array $options)
     {
+        $this->query = $this->getQuery();
+
         if (!empty($options['where']) && !$this->wheres_applied && is_array($options['where'])) {
             $model = $this->getModel();
             $model_table = $model->getTable();
@@ -174,12 +177,11 @@ abstract class BaseRepository
         $this->applyOrderBy($options);
         $this->applyGroupBy();
 
-//        dd($this->query->toSql(), $this->query->getBindings());
-
-        // return paginated results
-        if (!empty($options['page'])) {
+         //dd($this->query->toSql(), $this->query->getBindings());
+        // return paginated results to be fix not need for SP counter
+        /*if (!empty($options['page'])) {
             return $this->query->paginate($options['page']['num'], ['*'], 'page', $options['page']['page'] + 1);
-        }
+        }*/
 
         // return all collection
         return $this->query->get();

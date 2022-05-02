@@ -3,7 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use \App\Http\Controllers\Api\TimeController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,4 +20,7 @@ Route::post('login', [AuthController::class, 'login']);
 
 Route::middleware('auth:api')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/time', [TimeController::class, 'create']);
+    Route::get('/time', [TimeController::class, 'getAll']);
+    Route::get('/time/$id', [TimeController::class, 'getSingle']);
 });

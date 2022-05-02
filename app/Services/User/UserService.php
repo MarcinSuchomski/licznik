@@ -5,23 +5,23 @@ namespace App\Services\User;
 
 use App\Exceptions\UserWithThatEmailAlreadyExists;
 use App\Models\User;
-use App\Repositories\User\UserRepository;
+use App\Repositories\User\UserRepository as Repo;
 use App\Services\BaseService;
 use App\Validators\User\UserValidator;
 use App\Repositories\BaseRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-//use Laravel\Passport\Bridge\UserRepository;
+use Laravel\Passport\Bridge\UserRepository;
 
 class UserService extends BaseService
 {
     /**
      * UserService constructor.
-     * @param UserRepository $repo
+     * @param Repo $repo
      * @param UserValidator $validator
      */
-    public function __construct(UserRepository $repo, UserValidator $validator)
+    public function __construct(Repo $repo, UserValidator $validator)
     {
         $this->repo = $repo;
         $this->validator = $validator;

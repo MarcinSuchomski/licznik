@@ -2,6 +2,9 @@
 
 namespace App\Services;
 
+use App\DataParsers\AutocompleteParser;
+use App\DataParsers\DataTablesParser;
+use App\DataParsers\InfiniteScrollParser;
 use App\Repositories\RepositoryInterface;
 use App\Validators\ValidatorInterface;
 
@@ -28,11 +31,8 @@ class BaseService
     {
         $parser = isset($options['parser']) ? $options['parser'] : 'datatables';
         switch ($parser) {
-            case 'infinitescroll':
-                return  $this->grid_parser = new InfiniteScrollParser();
-            case 'angucomplete': //keep it for legacy uses
             case 'autocomplete':
-                return $this->grid_parser = new AutocompleteParser();
+                return  $this->grid_parser = new AutocompleteParser();
             case 'datatables':
             default:
                 return $this->grid_parser = new DataTablesParser();
@@ -63,7 +63,7 @@ class BaseService
         $this->prepareGridParser($options);
         $parsed_options = $this->grid_parser ? $this->grid_parser->parseInputToRepositoryFormat($options) : $options;
         $parsed_options = $this->parseCollectionOptions($parsed_options);
-        $count = $this->repo->getCountCollection($parsed_options);
+        $count = $this->repo->getCountCollection($options);
         return $count;
     }
 
@@ -77,17 +77,14 @@ class BaseService
         $total = $this->repo->getTotal($parsed_options);
         $collection = $this->repo->getCollection($parsed_options);
 
-        if ($collection instanceof \Illuminate\Pagination\LengthAwarePaginator) {
-            $data = $collection->items();
-            $count = $collection->total();
-        } else {
-            $data = $collection;
-            $count = $collection->count();
-        }
+
+        $data = $collection;
+        $count = $collection->count();
+
 
         if ($this->grid_parser) {
             $data = is_array($data) ? $data : $data->toArray();
-            return $this->grid_parser->parseOutputFromRepositoryFormat($data, $options, $count, $total);
+            return $this->grid_parser->parseOutputFromRepositoryFormat($data, $options, $count);
         }
 
 
@@ -130,7 +127,7 @@ class BaseService
 
     public function deleteSingle($id)
     {
-        throw new \Exception("Deleting is disabled by administrator!");
+        throw new \Exception("Deleting is disabled by Marcin!");
         //return $this->repo->delete($id);
     }
 

@@ -75,7 +75,7 @@ export default {
         },
         register() {
             this.checkForm(),
-            this.axios.post('http://127.0.0.1:8000/api/register', this.user)
+            this.axios.post('register', this.user)
                 .then(({data}) => {
                     this.$router.push('/login');
                 })

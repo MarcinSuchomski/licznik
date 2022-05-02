@@ -5330,13 +5330,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     logout: function logout() {
-      var _this = this;
-
-      this.axios.post('http://127.0.0.1:8000/api/logout').then(function (_ref) {
+      _Auth_js__WEBPACK_IMPORTED_MODULE_0__["default"].logout();
+      console.log("called ");
+      this.axios.post('logout').then(function (_ref) {
         var data = _ref.data;
         _Auth_js__WEBPACK_IMPORTED_MODULE_0__["default"].logout(); //reset local storage
-
-        _this.$router.push('/');
+        //this.$router.push('/');
       })["catch"](function (error) {
         console.log(error);
       });
@@ -5507,10 +5506,9 @@ __webpack_require__.r(__webpack_exports__);
     saveWork: function saveWork() {
       var _this3 = this;
 
-      this.checkForm(), this.axios.post('http://127.0.0.1:8000/api/time', this.timeData).then(function (_ref) {
-        var data = _ref.data;
+      this.checkForm(), this.axios.post('time', this.timeData).then(function (_ref) {// this.$router.push('/login');
 
-        _this3.$router.push('/login');
+        var data = _ref.data;
       })["catch"](function (error) {
         if (error.response.status == 200) {
           _this3.errors.push("informacje zostaly zapisane");
@@ -5551,39 +5549,79 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: "App",
   data: function data() {
     return {
-      items: ["albums", "todos", "posts"],
-      selected: "",
-      headers: [{
-        text: "USER_ID",
-        align: "start",
-        sortable: false,
-        value: "id"
-      }, {
-        text: "EMAIL",
-        value: "email"
-      }, {
-        text: "NAME",
-        value: "name"
-      }],
-      data: []
+      times: [],
+      form: {
+        from: this.currentDate(1),
+        until: this.currentDate(0)
+      },
+      isFiltering: false
     };
   },
   methods: {
     getData: function getData() {
       var _this = this;
 
-      return axios__WEBPACK_IMPORTED_MODULE_0___default().get("https://jsonplaceholder.typicode.com/users/1/", {
+      // const params = "?from=" + this.form.from + "&to=" + this.form.until
+      return axios__WEBPACK_IMPORTED_MODULE_0___default().get("time", {
         dataType: "json"
       }).then(function (response) {
-        _this.data.push(response.data);
+        _this.times.splice(0); //console.log(response.data.data);
+
+
+        _this.times.push(response.data.data); //console.log(this.times[0]);
+
       })["catch"](function (err) {
         return alert(err);
       });
+    },
+    currentDate: function currentDate(value) {
+      var current = new Date();
+      current.setMonth(current.getMonth() - value);
+      return current.toISOString().slice(0, 10);
+    },
+    downloadCSVData: function downloadCSVData() {
+      var csv = 'Title,Opis,Czas Pracy (sec),Czas Pracy (Formated),Stworzone\n';
+      this.times[0].forEach(function (row) {
+        csv += row.title + "," + row.description + "," + row.time + "," + row.converted_time + "," + row.created_at + ",";
+        csv += "\n";
+      });
+      var anchor = document.createElement('a');
+      anchor.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+      anchor.target = '_blank';
+      anchor.download = 'times.csv';
+      anchor.click();
     }
   },
   mounted: function mounted() {
@@ -5647,11 +5685,11 @@ __webpack_require__.r(__webpack_exports__);
     login: function login() {
       var _this = this;
 
-      this.axios.post('http://127.0.0.1:8000/api/login', this.user).then(function (_ref) {
+      this.axios.post('login', this.user).then(function (_ref) {
         var data = _ref.data;
         _Auth_js__WEBPACK_IMPORTED_MODULE_0__["default"].login(data.access_token, data.user); //set local storage
 
-        _this.$router.push('/dashboard');
+        window.location.href = "http://localhost:8000/"; // this.$router.push('/');
       })["catch"](function (error) {
         // console.log(error.response);
         if (error.response.status == 401) {
@@ -5754,7 +5792,7 @@ __webpack_require__.r(__webpack_exports__);
     register: function register() {
       var _this = this;
 
-      this.checkForm(), this.axios.post('http://127.0.0.1:8000/api/register', this.user).then(function (_ref) {
+      this.checkForm(), this.axios.post('register', this.user).then(function (_ref) {
         var data = _ref.data;
 
         _this.$router.push('/login');
@@ -5827,6 +5865,7 @@ var Auth = /*#__PURE__*/function () {
       window.localStorage.removeItem('token');
       window.localStorage.removeItem('user');
       this.user = null;
+      window.location.href = "http://localhost:8000/";
     }
   }]);
 
@@ -5864,9 +5903,11 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
+(axios__WEBPACK_IMPORTED_MODULE_0___default().defaults.baseURL) = 'http://127.0.0.1:8000/api/'; //axios.defaults.headers.common['Authorization'] = 'Bearer ' + this.token;
+
 vue__WEBPACK_IMPORTED_MODULE_3__["default"].prototype.auth = _Auth_js__WEBPACK_IMPORTED_MODULE_2__["default"];
 vue__WEBPACK_IMPORTED_MODULE_3__["default"].use(vue_axios__WEBPACK_IMPORTED_MODULE_1__["default"], (axios__WEBPACK_IMPORTED_MODULE_0___default()));
-vue__WEBPACK_IMPORTED_MODULE_3__["default"].prototype.$api = 'http://127.0.0.1:8000/api/';
+vue__WEBPACK_IMPORTED_MODULE_3__["default"].prototype.$api = '';
 
 
 var app = new vue__WEBPACK_IMPORTED_MODULE_3__["default"]({
@@ -28832,7 +28873,7 @@ var render = function () {
         { staticClass: "navbar navbar-expand-md navbar-dark bg-dark mb-4" },
         [
           _c("div", { staticClass: "container-fluid" }, [
-            _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
+            _c("a", { staticClass: "navbar-brand", attrs: { href: "/" } }, [
               _vm._v("Licznik"),
             ]),
             _vm._v(" "),
@@ -29171,31 +29212,122 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "v-app",
-    [
-      _c("v-data-table", {
-        attrs: { items: _vm.data, headers: _vm.headers, "items-per-page": 5 },
-        scopedSlots: _vm._u([
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { attrs: { id: "box" } }, [
+      _c("span", [_vm._v("From : ")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
           {
-            key: "items",
-            fn: function (props) {
-              return [
-                _c("td", [_vm._v(_vm._s(props.item.id))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(props.item.name))]),
-                _vm._v(" "),
-                _c("td", [_vm._v(_vm._s(props.item.email))]),
-              ]
-            },
+            name: "model",
+            rawName: "v-model",
+            value: _vm.form.from,
+            expression: "form.from",
           },
-        ]),
+        ],
+        attrs: { type: "date" },
+        domProps: { value: _vm.form.from },
+        on: {
+          input: function ($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.form, "from", $event.target.value)
+          },
+        },
       }),
-    ],
-    1
-  )
+      _vm._v(" "),
+      _c("span", [_vm._v("Until : ")]),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.form.until,
+            expression: "form.until",
+          },
+        ],
+        attrs: { type: "date" },
+        domProps: { value: _vm.form.until },
+        on: {
+          input: function ($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.form, "until", $event.target.value)
+          },
+        },
+      }),
+      _vm._v(" "),
+      _c("input", {
+        attrs: { type: "button", value: "Filtruj Daty" },
+        on: {
+          click: function ($event) {
+            return _vm.getData()
+          },
+        },
+      }),
+    ]),
+    _vm._v(" "),
+    _c("h3", { staticClass: "p-3 text-center" }, [_vm._v("Lista taskow ")]),
+    _vm._v(" "),
+    _c("table", { staticClass: "table table-striped table-bordered" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "tbody",
+        _vm._l(_vm.times[0], function (time) {
+          return _c("tr", { key: time.id }, [
+            _c("td", [_vm._v(_vm._s(time.title))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(time.description))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(time.time))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(time.converted_time))]),
+            _vm._v(" "),
+            _c("td", [_vm._v(_vm._s(time.created_at))]),
+          ])
+        }),
+        0
+      ),
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass: "container",
+        staticStyle: { "background-color": "#f1f1f1" },
+      },
+      [
+        _c("button", { on: { click: _vm.downloadCSVData } }, [
+          _vm._v("Download CSV"),
+        ]),
+      ]
+    ),
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Title")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Opis")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Czas Pracy (Sec)")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Czas Pracy (Formated)")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Stworzone")]),
+      ]),
+    ])
+  },
+]
 render._withStripped = true
 
 

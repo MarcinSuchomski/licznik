@@ -147,9 +147,9 @@ export default {
 
         saveWork() {
             this.checkForm(),
-                this.axios.post('http://127.0.0.1:8000/api/time', this.timeData)
+                this.axios.post('time', this.timeData)
                     .then(({data}) => {
-                        this.$router.push('/login');
+                       // this.$router.push('/login');
                     })
                     .catch((error) => {
                         if (error.response.status == 200) {

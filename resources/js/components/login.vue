@@ -41,10 +41,11 @@ export default {
 
     methods: {
         login() {
-            this.axios.post('http://127.0.0.1:8000/api/login', this.user)
+            this.axios.post('login', this.user)
                 .then(({data}) => {
                     Auth.login(data.access_token, data.user); //set local storage
-                    this.$router.push('/dashboard');
+                    window.location.href = "http://localhost:8000/";
+                    // this.$router.push('/');
                 })
                 .catch((error) => {
                     // console.log(error.response);

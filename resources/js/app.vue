@@ -2,7 +2,7 @@
     <div >
         <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#">Licznik</a>
+                <a class="navbar-brand" href="/">Licznik</a>
                 <i class='far fa-clock' style='font-size:24px'></i>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -62,10 +62,12 @@ export default {
     },
     methods: {
         logout() {
-            this.axios.post('http://127.0.0.1:8000/api/logout')
+            Auth.logout();
+            console.log("called ");
+            this.axios.post('logout')
                 .then(({data}) => {
                     Auth.logout(); //reset local storage
-                    this.$router.push('/');
+                    //this.$router.push('/');
                 })
                 .catch((error) => {
                     console.log(error);

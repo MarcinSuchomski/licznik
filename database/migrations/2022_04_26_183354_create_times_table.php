@@ -16,7 +16,8 @@ class CreateTimesTable extends Migration
         Schema::create('times', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('users_id')->nullable()->unsigned();
-            $table->string('name');
+            $table->string('title',80);
+            $table->string('description',255);
             $table->bigInteger('time')->nullable();
             $table->foreign('users_id')->references('id')->on('users')->onUpdate('NO ACTION')->onDelete('NO ACTION');
             $table->timestamps();

@@ -26,6 +26,8 @@ class Auth {
         window.localStorage.removeItem('token');
         window.localStorage.removeItem('user');
         this.user = null;
+
+        window.location.href = "http://localhost:8000/";
     }
 }
 export default new Auth();
