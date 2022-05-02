@@ -8,7 +8,7 @@
 Aby uruchomic aplickacje:
 * copy `.env.example` do `.env`
 * run `composer update`
-* create `database.sqlite` w database folder
+* create `database.sqlite` w database folder (lub skopiuj z \setup_files folderu)
 * run `php artisan migrate`
 * run `php artisan passport:install`
 * run `npm install`
