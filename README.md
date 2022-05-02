@@ -20,19 +20,19 @@ kiliknij link `http://127.0.0.1:8000` aby otworzyc frontend
 ## API ROUTES 
 ```
 +--------+----------+-----------------------------------------+-----------------------------------+---------------------------------------------------------------------------+------------------------------------------------+
-| Domain | Method   | URI                                     | Name                              | Action                                                                    | Middleware                                     |
+| Domain | Method   | URI                                     | Action                                                                    | Middleware                                     |
 +--------+----------+-----------------------------------------+-----------------------------------+---------------------------------------------------------------------------+------------------------------------------------+
-|        | GET|HEAD | /                                       |                                   | Closure                                                                   | web                                            |
-|        | POST     | api/login                               |                                   | App\Http\Controllers\Api\AuthController@login                             | api                                            |
-|        | POST     | api/logout                              |                                   | App\Http\Controllers\Api\AuthController@logout                            | api                                            |
-|        |          |                                         |                                   |                                                                           | App\Http\Middleware\Authenticate:api           |
-|        | POST     | api/register                            |                                   | App\Http\Controllers\Api\AuthController@register                          | api                                            |
-|        | GET|HEAD | api/time                                |                                   | App\Http\Controllers\Api\TimeController@getAll                            | api                                            |
-|        |          |                                         |                                   |                                                                           | App\Http\Middleware\Authenticate:api           |
-|        | POST     | api/time                                |                                   | App\Http\Controllers\Api\TimeController@create                            | api                                            |
-|        |          |                                         |                                   |                                                                           | App\Http\Middleware\Authenticate:api           |
-|        | GET|HEAD | api/time/$id                            |                                   | App\Http\Controllers\Api\TimeController@getSingle                         | api                                            |
-|        |          |                                         |                                   |                                                                           | App\Http\Middleware\Authenticate:api           |
+|        | GET|HEAD | /                                       | Closure                                                                   | web                                            |
+|        | POST     | api/login                               | App\Http\Controllers\Api\AuthController@login                             | api                                            |
+|        | POST     | api/logout                              | App\Http\Controllers\Api\AuthController@logout                            | api                                            |
+|        |          |                                         |                                                                           | App\Http\Middleware\Authenticate:api           |
+|        | POST     | api/register                            | App\Http\Controllers\Api\AuthController@register                          | api                                            |
+|        | GET|HEAD | api/time                                | App\Http\Controllers\Api\TimeController@getAll                            | api                                            |
+|        |          |                                         |                                                                           | App\Http\Middleware\Authenticate:api           |
+|        | POST     | api/time                                | App\Http\Controllers\Api\TimeController@create                            | api                                            |
+|        |          |                                         |                                                                           | App\Http\Middleware\Authenticate:api           |
+|        | GET|HEAD | api/time/$id                            | App\Http\Controllers\Api\TimeController@getSingle                         | api                                            |
+|        |          |                                         |                                                                           | App\Http\Middleware\Authenticate:api           |
 +--------+----------+-----------------------------------------+-----------------------------------+---------------------------------------------------------------------------+------------------------------------------------+
 ```
 ### Controllers 
